@@ -1,5 +1,5 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import Paper from "@material-ui/core/Paper";
 import IconButton from "@material-ui/core/IconButton";
 import InfoIcon from "@material-ui/icons/Info";
@@ -13,28 +13,36 @@ const useStyles = makeStyles((theme) => ({
     textAlign: "center",
     width: 330,
     height: 350,
+    cursor: "pointer",
+    transition: "transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out",
+    "&:hover": {
+      transform: "translateY(-2px)",
+      boxShadow: theme.shadows[8],
+    },
+  },
+  link: {
+    textDecoration: "none",
+    color: "inherit",
+    display: "block",
   },
 }));
 
 const Product = (props) => {
   const classes = useStyles();
-  let navigate = useNavigate();
-
-  const productDetails = () => {
-    navigate(props.url);
-  };
 
   return (
-    <Paper elevation={3} className={classes.paper}>
-      <img src={props.data.image} width="300" />
-      <div>
-        <h2>{props.data.productName}</h2>
-        <span>{props.data.cost}</span>
-        <IconButton>
-          <InfoIcon onClick={productDetails} />
-        </IconButton>
-      </div>
-    </Paper>
+    <Link to={props.url} className={classes.link}>
+      <Paper elevation={3} className={classes.paper}>
+        <img src={props.data.image} width="300" />
+        <div>
+          <h2>{props.data.productName}</h2>
+          <span>{props.data.cost}</span>
+          <IconButton>
+            <InfoIcon />
+          </IconButton>
+        </div>
+      </Paper>
+    </Link>
   );
 };
 

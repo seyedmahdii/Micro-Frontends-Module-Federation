@@ -289,7 +289,7 @@ const Main = () => {
           <div className={classes.drawerHeader} />
           <Routes>
             <Route exact path="/myaccount" element={renderMFE(MyAccount)} />
-            <Route path="/shop" element={renderMFE(Catalogue)} />
+            <Route path="/shop/*" element={renderMFE(Catalogue)} />
             <Route path="/" element={renderMFE(SignIn)} />
           </Routes>
         </main>
