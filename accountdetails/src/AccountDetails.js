@@ -10,13 +10,13 @@ const AccountDetails = (props) => {
       <h3>Account Details</h3>
       <ul>
         <li>
-          <i>name:</i> Luca
+          <i>name:</i> Mahdi
         </li>
         <li>
-          <i>surname:</i> Mezzalira
+          <i>username:</i> seyedmahdi
         </li>
         <li>
-          <i>email:</i> guesswho@lm.com
+          <i>email:</i> seyedmahdijalali2020@gmail.com
         </li>
         <li>
           <i>member since:</i> Jan 2021

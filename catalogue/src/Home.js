@@ -1,5 +1,5 @@
 import React from "react";
-import { useRouteMatch } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import {
   StylesProvider,
   createGenerateClassName,
@@ -32,7 +32,8 @@ const generateClassName = createGenerateClassName({
 });
 
 const Home = () => {
-  let { path } = useRouteMatch();
+  let location = useLocation();
+  let path = location.pathname;
 
   return (
     <StylesProvider generateClassName={generateClassName}>

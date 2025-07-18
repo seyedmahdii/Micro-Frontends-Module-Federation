@@ -1,5 +1,5 @@
 import React from "react";
-import { useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import Paper from "@material-ui/core/Paper";
 import IconButton from "@material-ui/core/IconButton";
 import InfoIcon from "@material-ui/icons/Info";
@@ -18,10 +18,10 @@ const useStyles = makeStyles((theme) => ({
 
 const Product = (props) => {
   const classes = useStyles();
-  let history = useHistory();
+  let navigate = useNavigate();
 
   const productDetails = () => {
-    history.push(props.url);
+    navigate(props.url);
   };
 
   return (

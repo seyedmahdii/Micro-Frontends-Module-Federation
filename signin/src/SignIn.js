@@ -1,5 +1,5 @@
 import React from "react";
-import { useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import Typography from "@material-ui/core/Typography";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
@@ -16,11 +16,11 @@ const generateClassName = createGenerateClassName({
 });
 
 const SignIn = () => {
-  let history = useHistory();
+  let navigate = useNavigate();
 
   const onSignIn = () => {
     window.sessionStorage.setItem("token", faketoken);
-    history.push("/shop");
+    navigate("/shop");
   };
 
   return (
