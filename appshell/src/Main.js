@@ -31,7 +31,7 @@ const Catalogue = React.lazy(() => import("Catalogue/Catalogue"));
 const SignIn = React.lazy(() => import("SignIn/SignIn"));
 const MyAccount = React.lazy(() => import("MyAccount/MyAccount"));
 
-const drawerWidth = 240;
+const drawerWidth = 280;
 
 const generateClassName = createGenerateClassName({
   seed: "appshell",
@@ -50,6 +50,10 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
   },
   appBar: {
+    backgroundColor: "#ffffff",
+    color: "#333333",
+    boxShadow: "0 1px 3px rgba(0,0,0,0.08)",
+    borderBottom: "1px solid #f0f0f0",
     transition: theme.transitions.create(["margin", "width"], {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen,
@@ -65,6 +69,10 @@ const useStyles = makeStyles((theme) => ({
   },
   menuButton: {
     marginRight: theme.spacing(2),
+    color: "#666666",
+    "&:hover": {
+      backgroundColor: "rgba(0,0,0,0.04)",
+    },
   },
   hide: {
     display: "none",
@@ -75,22 +83,27 @@ const useStyles = makeStyles((theme) => ({
   },
   drawerPaper: {
     width: drawerWidth,
+    backgroundColor: "#fafafa",
+    borderRight: "1px solid #f0f0f0",
+    boxShadow: "2px 0 8px rgba(0,0,0,0.06)",
   },
   drawerHeader: {
     display: "flex",
     alignItems: "center",
-    padding: theme.spacing(0, 1),
-    ...theme.mixins.toolbar,
+    padding: theme.spacing(2, 3),
+    minHeight: 64,
     justifyContent: "flex-end",
+    borderBottom: "1px solid #f0f0f0",
   },
   content: {
     flexGrow: 1,
-    padding: theme.spacing(3),
+    padding: theme.spacing(4),
     transition: theme.transitions.create("margin", {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen,
     }),
     marginLeft: -drawerWidth,
+    backgroundColor: "#ffffff",
   },
   contentShift: {
     transition: theme.transitions.create("margin", {
@@ -98,6 +111,58 @@ const useStyles = makeStyles((theme) => ({
       duration: theme.transitions.duration.enteringScreen,
     }),
     marginLeft: 0,
+  },
+  navItem: {
+    margin: theme.spacing(0.5, 2),
+    borderRadius: 8,
+    "&:hover": {
+      backgroundColor: "rgba(0,0,0,0.04)",
+    },
+  },
+  navLink: {
+    textDecoration: "none",
+    color: "inherit",
+    display: "flex",
+    width: "100%",
+  },
+  navIcon: {
+    color: "#666666",
+    minWidth: 40,
+  },
+  navText: {
+    color: "#333333",
+    fontWeight: 500,
+  },
+  divider: {
+    margin: theme.spacing(2, 0),
+    backgroundColor: "#f0f0f0",
+  },
+  tokenSection: {
+    padding: theme.spacing(2, 3),
+    borderTop: "1px solid #f0f0f0",
+  },
+  tokenButton: {
+    backgroundColor: "#f8f9fa",
+    color: "#333333",
+    border: "1px solid #e9ecef",
+    borderRadius: 6,
+    textTransform: "none",
+    fontWeight: 500,
+    marginBottom: theme.spacing(2),
+    "&:hover": {
+      backgroundColor: "#e9ecef",
+    },
+  },
+  tokenField: {
+    "& .MuiOutlinedInput-root": {
+      backgroundColor: "#ffffff",
+      borderRadius: 6,
+    },
+  },
+  appTitle: {
+    fontWeight: 600,
+    color: "#333333",
+    fontSize: "1.1rem",
   },
 }));
 
@@ -110,7 +175,7 @@ const Main = () => {
 
   const classes = useStyles();
   const theme = useTheme();
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = React.useState(true);
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -140,8 +205,8 @@ const Main = () => {
             >
               <MenuIcon />
             </IconButton>
-            <Typography variant="h6" noWrap>
-              Gadgets shop
+            <Typography variant="h6" noWrap className={classes.appTitle}>
+              Gadgets Shop
             </Typography>
           </Toolbar>
         </AppBar>
@@ -163,45 +228,58 @@ const Main = () => {
               )}
             </IconButton>
           </div>
-          <Divider />
           <List>
-            <ListItem button key="SignIn">
-              <ListItemIcon>
-                <ExitToAppIcon />
-              </ListItemIcon>
-              <Link to="/">
-                <ListItemText primary="Sign In" />
+            <ListItem button key="SignIn" className={classes.navItem}>
+              <Link to="/" className={classes.navLink}>
+                <ListItemIcon className={classes.navIcon}>
+                  <ExitToAppIcon />
+                </ListItemIcon>
+                <ListItemText primary="Sign In" className={classes.navText} />
               </Link>
             </ListItem>
-            <ListItem button key="Catalogue">
-              <ListItemIcon>
-                <ViewListIcon />
-              </ListItemIcon>
-              <Link to="/shop">
-                <ListItemText primary="Catalogue" />
+            <ListItem button key="Catalogue" className={classes.navItem}>
+              <Link to="/shop" className={classes.navLink}>
+                <ListItemIcon className={classes.navIcon}>
+                  <ViewListIcon />
+                </ListItemIcon>
+                <ListItemText primary="Catalogue" className={classes.navText} />
               </Link>
             </ListItem>
-            <ListItem button key="My Account">
-              <ListItemIcon>
-                <AccountCircleIcon />
-              </ListItemIcon>
-              <Link to="/myaccount">
-                <ListItemText primary="My Account" />
+            <ListItem button key="My Account" className={classes.navItem}>
+              <Link to="/myaccount" className={classes.navLink}>
+                <ListItemIcon className={classes.navIcon}>
+                  <AccountCircleIcon />
+                </ListItemIcon>
+                <ListItemText
+                  primary="My Account"
+                  className={classes.navText}
+                />
               </Link>
             </ListItem>
           </List>
-          <Divider />
-          <Button variant="contained" onClick={onRetrieveToken}>
-            Get Token
-          </Button>
-          <TextField
-            id="standard-read-only-input"
-            label="Read Only"
-            value={theToken}
-            InputProps={{
-              readOnly: true,
-            }}
-          />
+          <Divider className={classes.divider} />
+          <div className={classes.tokenSection}>
+            <Button
+              variant="outlined"
+              onClick={onRetrieveToken}
+              className={classes.tokenButton}
+              fullWidth
+            >
+              Get Token
+            </Button>
+            <TextField
+              id="standard-read-only-input"
+              label="Token"
+              value={theToken}
+              variant="outlined"
+              size="small"
+              fullWidth
+              className={classes.tokenField}
+              InputProps={{
+                readOnly: true,
+              }}
+            />
+          </div>
         </Drawer>
         <main
           className={clsx(classes.content, {
