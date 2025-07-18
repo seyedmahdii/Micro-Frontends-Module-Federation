@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Typography from "@material-ui/core/Typography";
 import Paper from "@material-ui/core/Paper";
 import List from "@material-ui/core/List";
@@ -93,10 +93,7 @@ const useStyles = makeStyles((theme) => ({
 
 const AccountDetails = (props) => {
   const classes = useStyles();
-  const [lastPaymentDate, setPaymentChanged] = useState("Jan 2021");
-
-  props.emitter.on("paymentChanged", (date) => setPaymentChanged(date));
-
+  const [lastPaymentDate, setPaymentChanged] = useState("2025-07-18 19:27:58");
   const accountInfo = [
     {
       icon: <PersonIcon />,
@@ -124,6 +121,30 @@ const AccountDetails = (props) => {
       value: lastPaymentDate,
     },
   ];
+
+  useEffect(() => {
+    const handlePaymentChanged = (date) => {
+      // "YYYY-MM-DD HH:mm:ss"
+      const d = new Date(date);
+      const year = d.getFullYear();
+      const month = String(d.getMonth() + 1).padStart(2, "0");
+      const day = String(d.getDate()).padStart(2, "0");
+      const hours = String(d.getHours()).padStart(2, "0");
+      const minutes = String(d.getMinutes()).padStart(2, "0");
+      const seconds = String(d.getSeconds()).padStart(2, "0");
+      const formatted = `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
+      setPaymentChanged(formatted);
+    };
+
+    const unsubscribe = props.emitter.on(
+      "paymentChanged",
+      handlePaymentChanged
+    );
+
+    return () => {
+      unsubscribe();
+    };
+  }, [props.emitter]);
 
   return (
     <StylesProvider generateClassName={generateClassName}>

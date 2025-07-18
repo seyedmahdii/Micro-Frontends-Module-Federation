@@ -106,7 +106,7 @@ const PaymentDetails = (props) => {
   const classes = useStyles();
 
   const onPaymentChanged = () => {
-    props.emitter.emit("paymentChanged", "May 2021");
+    props.emitter.emit("paymentChanged", new Date().toString());
   };
 
   const paymentInfo = [
